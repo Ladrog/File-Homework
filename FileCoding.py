@@ -24,7 +24,26 @@ def read_file(file_name):
                 cook_book[dish_name].append(ingredient_dict)
     return cook_book
 
-print(read_file('dishes.txt'))
+# print(read_file('dishes.txt'))
+
+def get_shop_list_by_dishes(cook_book, dishes, person_count):
+    shop_list = {}
+    for food in dishes:
+        for food_name in cook_book.keys():
+            if food == food_name:
+                for ingredient in cook_book[food_name]:
+                    key = ingredient['ingredient_name']
+                    ingredient_quantity = ingredient['quantity'] * person_count
+                    ingredient_measure = ingredient['measure']
+                    shop_list[key] = {'measure': ingredient_measure,
+                                      'quantity': ingredient_quantity
+                                      }
+    return shop_list
+
+
+result = read_file('dishes.txt')
+print(get_shop_list_by_dishes(result, ['Омлет', 'Запеченный картофель'], 2))
+
 
 
 
